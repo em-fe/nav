@@ -195,7 +195,7 @@ export default {
       }, 100);
     },
     setLocale(locale) {
-      window.$cookie.set('locale', locale, 0, '/', this.domain || '');
+      window.$cookie.set('locale', locale, '1m', '/', this.domain || '');
     },
     // 我的订单
     myOrder() {
