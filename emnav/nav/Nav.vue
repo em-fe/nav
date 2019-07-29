@@ -29,7 +29,7 @@
             ['w-nav-box-main-new-english']: !isChina
           }"
           @click="organizer"
-        >主办方管理
+        >{{organizerText}}
           <div v-show="erweimaFlag" class="w-nav-box-main-new-erweima" style="left:-20px;">
             <img class="w-nav-box-main-new-erweima-img" src="https://static2.evente.cn/static/img/nav-icon-qr2.png" alt="">
           </div>
@@ -144,6 +144,10 @@ export default {
     order: { // 我的订单文案
       type: String,
       default: '我的订单',
+    },
+    organizerText: { // 主办方管理文案
+      type: String,
+      default: '主办APP',
     },
     imgLogo: String, // 主板图案
     // 登录相关 start
