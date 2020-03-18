@@ -3149,10 +3149,10 @@ em-normalize@^1.0.2:
   resolved "https://registry.yarnpkg.com/em-normalize/-/em-normalize-1.0.2.tgz#fc12f05697d1c747f78f6670a66b4fcb63968435"
   integrity sha512-udfC+9LCXZSN+xQX6nscang/e8w+YBtiuhs08YjBXjKZh3HEJp8ir/w4NCa1KkrRBbC67Su1l3pC8bAINHRbpw==
 
-emlogin@^0.3.5:
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/emlogin/-/emlogin-0.3.5.tgz#f9a52e98f965e513611a252afc0fb8588e6b5740"
-  integrity sha512-ciZscWehUXQI41XpgvMo31MvS2FyhbQWzo+rEtzcY0QvoCzGN0TRHLUejpr0WOLZ3MSJvMTSyVpf3GCmhPAHcQ==
+emfelogin@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/emfelogin/-/emfelogin-0.0.3.tgz#8d4f45cfdaef1fb3ac596699aa4805788801027f"
+  integrity sha512-MbCBcPQH/caf7IIwmeYRZbIo7ESaXG7r/7frJKQlCwgKN5KNvFXfGIBTTpyx8w2pu4++oAwyoO4ZK+OdTVvnOQ==
 
 emojis-list@^2.0.0:
   version "2.1.0"

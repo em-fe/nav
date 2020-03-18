@@ -102,13 +102,15 @@
       :loginEnglishAction="loginEnglishAction"
       :lang="lang"
       :domain="domain"
+      :loginConfirmAction="confirmAction"
+      :loginRegisterAction="loginRegisterAction"
     ></w-login>
   </div>
 </template>
 
 <script>
 import emCookie from 'em-cookie';
-import login from 'emlogin';
+import login from 'emfelogin';
 import logoutpc from './logoutpc';
 import ajax from './ajax';
 
@@ -175,6 +177,8 @@ export default {
     logoutAction: String,
     langHandle: Function,
     sendEmailEnglishAction: String,
+    confirmAction: String,
+    loginRegisterAction: String,
   },
   created() {
     this.lang = window.$cookie.get('locale') || 'zh_CN';
