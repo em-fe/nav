@@ -1,6 +1,6 @@
 {
   "name": "emnav",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "em 头部弹框业务组件",
   "author": "李梦龙 <649076408@qq.com>",
   "main": "dist/emnav.js",
