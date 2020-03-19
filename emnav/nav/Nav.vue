@@ -104,6 +104,7 @@
       :domain="domain"
       :loginConfirmAction="confirmAction"
       :loginRegisterAction="loginRegisterAction"
+      :resultJson="resultJson"
     ></w-login>
   </div>
 </template>
@@ -179,6 +180,7 @@ export default {
     sendEmailEnglishAction: String,
     confirmAction: String,
     loginRegisterAction: String,
+    resultJson: Object,
   },
   created() {
     this.lang = window.$cookie.get('locale') || 'zh_CN';
