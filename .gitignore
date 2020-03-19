@@ -27,3 +27,4 @@ dist
 .cache*
 coverage
 docs/
+yarn.lock
