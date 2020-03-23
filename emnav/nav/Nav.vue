@@ -94,7 +94,7 @@
       :show="loginStatus"
       :close="closeLogin"
       :success="loginSucFn"
-      :orgid="orgid"
+      :orgid="orgId"
       :countrycodeAction="countrycodeAction"
       :sendAction="sendAction"
       :loginAction="loginAction"
@@ -104,6 +104,7 @@
       :domain="domain"
       :loginConfirmAction="confirmAction"
       :loginRegisterAction="loginRegisterAction"
+      :resultJson="resultJson"
     ></w-login>
   </div>
 </template>
@@ -130,6 +131,7 @@ export default {
       // 登录相关 start
       loginStatus: false,
       loginFlg: false,
+      orgId: '',
       // 登录相关 end
     };
   },
@@ -179,12 +181,14 @@ export default {
     sendEmailEnglishAction: String,
     confirmAction: String,
     loginRegisterAction: String,
+    resultJson: Object,
   },
   created() {
+    this.orgId = this.orgid;
     this.lang = window.$cookie.get('locale') || 'zh_CN';
     this.isChina = this.lang === 'zh_CN';
     this.language = this.isChina ? 'English' : '中文';
-    this.getLoginStatus(this.orgid);
+    this.getLoginStatus(this.orgId);
   },
   methods: {
     getLoginStatus(orgId) {
@@ -244,7 +248,7 @@ export default {
       this.loginClose();
     },
     loginSucFn() {
-      this.getLoginStatus(this.orgid);
+      this.getLoginStatus(this.orgId);
       this.loginSuccess();
     },
     // 登录相关 end
@@ -252,11 +256,11 @@ export default {
     logoutFun() {
       ajax({
         type: 'GET',
-        action: `${this.logoutAction}?org_id=${this.orgid}`,
+        action: `${this.logoutAction}?org_id=${this.orgId}`,
         onSuccess: (res) => {
           if (res.code === 10000) {
-            logoutpc(res, this.orgid, this, () => {
-              this.getLoginStatus(this.orgid);
+            logoutpc(res, this.orgId, this, () => {
+              this.getLoginStatus(this.orgId);
               this.$emit('logout');
             });
           } else {
@@ -278,7 +282,7 @@ export default {
         this.error = false;
         ajax({
           type: 'POST',
-          action: `${this.sendEmailEnglishAction}?mail=${this.email}&org_id=${this.orgid}`,
+          action: `${this.sendEmailEnglishAction}?mail=${this.email}&org_id=${this.orgId}`,
           onSuccess: (res) => {
             if (res.code === 10000) {
               this.close();
@@ -313,6 +317,7 @@ export default {
   },
   watch: {
     orgid(val) {
+      this.orgId = val;
       this.getLoginStatus(val);
     },
   },
