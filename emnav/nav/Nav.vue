@@ -105,6 +105,12 @@
       :loginConfirmAction="confirmAction"
       :loginRegisterAction="loginRegisterAction"
       :resultJson="resultJson"
+      :oauthkey="oauthKey"
+      :oauthType="oauthType"
+      :wechatUrl="wechatUrl"
+      :bindWechatAction="bindWechatAction"
+      :wechatLoginAction="wechatLoginAction"
+      :autologinAction="autologinAction"
     ></w-login>
   </div>
 </template>
@@ -181,6 +187,12 @@ export default {
     sendEmailEnglishAction: String,
     confirmAction: String,
     loginRegisterAction: String,
+    autologinAction: String,
+    wechatLoginAction: String,
+    wechatUrl: String,
+    bindWechatAction: String,
+    oauthkey: String,
+    oauthType: String,
     resultJson: Object,
   },
   created() {
@@ -192,7 +204,7 @@ export default {
   },
   methods: {
     getLoginStatus(orgId) {
-      this.loginFlg = !!window.$cookie.get(`Authorization?org_id=${orgId}`);
+      this.loginFlg = !!window.$cookie.get(`EMTOKEN_${orgId}`);
     },
     // 语言
     languageFun() {
@@ -254,20 +266,9 @@ export default {
     // 登录相关 end
     // 退出
     logoutFun() {
-      ajax({
-        type: 'GET',
-        action: `${this.logoutAction}?org_id=${this.orgId}`,
-        onSuccess: (res) => {
-          if (res.code === 10000) {
-            logoutpc(res, this.orgId, this, () => {
-              this.getLoginStatus(this.orgId);
-              this.$emit('logout');
-            });
-          } else {
-            this.handleAjaxError(res.message);
-          }
-        },
-        onError: this.handleAjaxError,
+      logoutpc(this.orgId, this, () => {
+        this.getLoginStatus(this.orgId);
+        this.$emit('logout');
       });
     },
     // 关闭弹窗
