@@ -6,7 +6,7 @@
 <br>
 
 <p>
-  <w-nav orgid="100015" :countrycodeAction="countrycodeAction" :sendAction="sendAction" :loginAction="loginAction" :sendEnglishAction="sendEnglishAction" :loginEnglishAction="loginEnglishAction" :logoutAction="loginEnglishAction" domain="" :sendEmailEnglishAction="loginAction" />
+  <w-nav orgid="100015" :countrycodeAction="countrycodeAction" :sendAction="sendAction" :loginAction="loginAction" :sendEnglishAction="sendEnglishAction" :loginEnglishAction="loginEnglishAction" :logoutAction="loginEnglishAction" domain="" :sendEmailEnglishAction="loginAction" :resultJson="resultJson"/>
 </p>
 <br>
 <br>
@@ -49,6 +49,7 @@
 <script>
 import WLogin from 'emfelogin/dist/login/Login';
 import WNav from './Nav';
+import resultJson from './resultJson';
 
 export default {
   data() {
@@ -60,6 +61,7 @@ export default {
       loginAction: 'https://www.easy-mock.com/mock/5ab386ecca15e11ded65b593/chinese/login',
       sendEnglishAction: 'https://www.easy-mock.com/mock/5ab386ecca15e11ded65b593/chinese/smssend',
       loginEnglishAction: 'https://www.easy-mock.com/mock/5ab386ecca15e11ded65b593/chinese/login',
+      resultJson,
     };
   },
   components: {
