@@ -90,22 +90,31 @@
         Check your email
       </div>
     </div>
-    <w-login
-      :show="loginStatus"
-      :close="closeLogin"
-      :success="loginSucFn"
-      :orgid="orgId"
-      :countrycodeAction="countrycodeAction"
-      :sendAction="sendAction"
-      :loginAction="loginAction"
-      :sendEnglishAction="sendEnglishAction"
-      :loginEnglishAction="loginEnglishAction"
-      :lang="lang"
-      :domain="domain"
-      :loginConfirmAction="confirmAction"
-      :loginRegisterAction="loginRegisterAction"
-      :resultJson="resultJson"
-    ></w-login>
+    <div v-if="loginStatus">
+      <w-login
+        :show="loginStatus"
+        :close="closeLogin"
+        :success="loginSucFn"
+        :orgid="orgId"
+        :countrycodeAction="countrycodeAction"
+        :sendAction="sendAction"
+        :loginAction="loginAction"
+        :sendEnglishAction="sendEnglishAction"
+        :loginEnglishAction="loginEnglishAction"
+        :lang="lang"
+        :domain="domain"
+        :loginConfirmAction="confirmAction"
+        :loginRegisterAction="loginRegisterAction"
+        :resultJson="resultJson"
+        :oauthkey="oauthKey"
+        :oauthType="oauthType"
+        :wechatUrl="wechatUrl"
+        :bindWechatAction="bindWechatAction"
+        :wechatLoginAction="wechatLoginAction"
+        :autologinAction="autologinAction"
+        :isShowWechat="isShowWechat"
+      ></w-login>
+    </div>
   </div>
 </template>
 
@@ -175,24 +184,37 @@ export default {
     loginAction: String,
     sendEnglishAction: String,
     loginEnglishAction: String,
+    isShowWechat: Boolean,
     // 登录相关 end
     logoutAction: String,
     langHandle: Function,
     sendEmailEnglishAction: String,
     confirmAction: String,
     loginRegisterAction: String,
+    autologinAction: String,
+    wechatLoginAction: String,
+    wechatUrl: String,
+    bindWechatAction: String,
+    oauthkey: String,
+    oauthType: String,
     resultJson: Object,
+    isLogin: [String, Boolean],
   },
   created() {
     this.orgId = this.orgid;
     this.lang = window.$cookie.get('locale') || 'zh_CN';
     this.isChina = this.lang === 'zh_CN';
     this.language = this.isChina ? 'English' : '中文';
+    this.loginFlg = this.isLogin;
+    // if (this.oauthType === 'bind') {
+    //   this.loginStatus = true;
+    // }
+
     this.getLoginStatus(this.orgId);
   },
   methods: {
     getLoginStatus(orgId) {
-      this.loginFlg = !!window.$cookie.get(`Authorization?org_id=${orgId}`);
+      this.loginFlg = !!window.$cookie.get(`EMTOKEN_${orgId}`);
     },
     // 语言
     languageFun() {
@@ -254,20 +276,9 @@ export default {
     // 登录相关 end
     // 退出
     logoutFun() {
-      ajax({
-        type: 'GET',
-        action: `${this.logoutAction}?org_id=${this.orgId}`,
-        onSuccess: (res) => {
-          if (res.code === 10000) {
-            logoutpc(res, this.orgId, this, () => {
-              this.getLoginStatus(this.orgId);
-              this.$emit('logout');
-            });
-          } else {
-            this.handleAjaxError(res.message);
-          }
-        },
-        onError: this.handleAjaxError,
+      logoutpc(this.orgId, this, () => {
+        this.getLoginStatus(this.orgId);
+        this.$emit('logout');
       });
     },
     // 关闭弹窗
@@ -319,6 +330,9 @@ export default {
     orgid(val) {
       this.orgId = val;
       this.getLoginStatus(val);
+    },
+    isLogin() {
+      this.loginFlg = this.isLogin;
     },
   },
   components: {
